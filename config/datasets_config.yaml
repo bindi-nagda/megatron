@@ -1,0 +1,44 @@
+# This YAML config file enables user to add or remove datasets for processing
+# Attributes needed per dataset 
+#     name:             A useful name for the dataset
+#     command:          A specific bash command that will initiate the download
+#     filename:         The name for the dataset to be saved as
+#     data_yaml:        Name of the dataset's yaml file craeated in config dir for YOLOv8 
+
+datasets:
+  # Dataset 1
+  - name: MRI for Brain Tumor Detection
+    command: kaggle datasets download -d ahmedsorour1/mri-for-brain-tumor-with-bounding-boxes
+    filename: MRI-Brain-Tumor.zip
+  
+  # Dataset 2
+  - name: CBIS DDSM Mammography Detection
+    command: wget https://zenodo.org/records/10960991/files/CBIS-DDSM-Patches.zip?download=1
+    filename: CBIS-DDSM-Mammogram.zip
+  
+  # Dataset 3
+  - name: RSNA Pneumonia Multiclass Detection 
+    command: kaggle competitions download -c rsna-pneumonia-detection-challenge
+    filename: RSNA-pneumonia.zip
+  
+  # Dataset 4
+  - name: VinBigData Chest X-ray Abnormalities Detection
+    command: kaggle datasets download -d sunghyunjun/vinbigdata-1024-jpg-dataset
+    filename: Chest-xray.zip
+  
+  # Dataset 5
+  - name: BUS-UCLM Breast Ultrasound Lesion Detection
+    command: wget https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/7fvgj4jsp7-3.zip
+    filename: Breast-Ultrasound.zip
+
+  # Dataset 6
+  - name: Deepsight 2D Mammogram Anomaly Detection
+    command: n/a. Requires manual download.
+    filename: DeepSight-2d-Mammogram.tar
+
+  # Dataset 7
+  - name: Advanced MRI Breast Lesion Detection
+    command: n/a. Requires manual download.
+    filename: Advanced-MRI-Breast-Lesion
+
+  # Add your dataset below

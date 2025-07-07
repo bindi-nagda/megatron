@@ -1,0 +1,50 @@
+#!/bin/bash
+#SBATCH --job-name=test 
+#SBATCH --output=data.%J.out
+#SBATCH --error=data.%J.err
+#SBATCH --nodes=1 
+#SBATCH --ntasks=1
+#SBATCH --mem=40000MB
+#SBATCH --partition=gpu2
+#SBATCH --gres=gpu:1
+#SBATCH --nodelist=gpu07
+
+# Trap interruptions early
+trap 'echo "SLURM job interrupted or killed on $(date)"' TERM INT
+
+#module load cuda/11.8.0-gcc-11.4.0-e3e6abk
+ 
+# === Load Conda ===
+# Initialize Conda manually (important in SLURM non-interactive jobs)
+# source <path-to-minconda>/etc/profile.d/conda.sh
+source /home1/bnagda2015/miniconda3/etc/profile.d/conda.sh
+
+# Activate your Conda environment
+conda activate meta310  
+
+# === Debug Info ===
+echo "SLURM Job started on: $(date)"
+echo "Running on node: $(hostname)"
+echo "CUDA_VISIBLE_DEVICES: $CUDA_VISIBLE_DEVICES"
+echo "Python path: $(which python)"
+echo "Python version: $(python --version)"
+# echo "CUDA version: $(nvcc --version)"
+# echo "Environment PATH: $PATH"
+echo "-----------------------------"
+
+# === Run your script ===
+# python utils/prep_data.py
+# python train/test_gpu_train.py
+python /home1/bnagda2015/megatron/train/meta_train.py --data_folder $DATA_FOLDER
+
+# # Run job 1 on GPU 0
+# CUDA_VISIBLE_DEVICES=0 python /home1/bnagda2015/megatron/train/meta_train.py --data_folder $TASK1 &
+
+# # Run job 2 on GPU 1
+# CUDA_VISIBLE_DEVICES=1 python /home1/bnagda2015/megatron/train/meta_train.py --data_folder $DATA_FOLDER &
+
+wait  # ensures the SLURM job doesn’t finish until both are done
+
+# === Job End ===
+echo "-----------------------------"
+echo "SLURM Job ended on: $(date)"
