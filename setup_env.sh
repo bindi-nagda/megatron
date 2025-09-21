@@ -9,7 +9,7 @@ cd "$(dirname "$0")"
 # Step 2: Check if conda is installed
 if ! command -v conda &> /dev/null
 then
-    echo "❌ Conda is not installed. Please install Miniconda first."
+    echo "Conda is not installed. Please install Miniconda first."
     exit 1
 fi
 
@@ -22,7 +22,7 @@ if [ -f "environment.yml" ]; then
     # This environment will still support data processing.
     # conda env create -f environmentNoCuda.yml 
 else
-    echo "❌ environment.yml not found! Make sure it's in the same folder as setup_env.sh."
+    echo "environment.yml not found! Make sure it's in the same folder as setup_env.sh."
     exit 1
 fi
 

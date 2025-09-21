@@ -488,10 +488,9 @@ def create_joint_episode_yaml(base_yaml_path, output_yaml_path, support_images, 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_folder', type=str, required=True, help='Path to training results folder')
+    parser.add_argument('--data_folder', type=str, required=True, help='Name of folder to save training results')
     args = parser.parse_args()
 
-    # Then use args.data_folder in your code
     print(f"Using data folder: {args.data_folder}")
 
     main(num_epochs=40, user_store_dir=args.data_folder)

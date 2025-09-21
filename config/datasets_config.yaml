@@ -40,5 +40,11 @@ datasets:
   - name: Advanced MRI Breast Lesion Detection
     command: n/a. Requires manual download.
     filename: Advanced-MRI-Breast-Lesion
+  
+  # Dataset 8
+  - name: EIT data
+    command: wget https://zenodo.org/records/17001321/files/EIT-Novel-Data.zip?download=1
+    filename: Novel-EIT-Data
+
 
   # Add your dataset below
