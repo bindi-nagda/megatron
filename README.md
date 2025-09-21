@@ -1,6 +1,6 @@
 # MEGATRON: Meta-Learning for Next-Generation Advanced Technology Realization & Acceleration
 
-MEGATRON is a high-performance framework for large-scale data processing and model training. This repository provides tools to download, process, and train models on open-source datasets, with support for extensible custom datasets and SLURM-based job submission for GPU clusters.
+MEGATRON is a meta-learning framework for multimodal medical imaging data processing and model training. This repository provides tools to download and process data from open-source GREI repositories, and train meta-models on these datasets for few-shot object detection, with support for extensible custom datasets and SLURM-based job submission for GPU clusters.
 
 ---
 
@@ -43,7 +43,7 @@ Follow the on-screen prompts and choose the default options. Restart your shell 
 Run the provided setup script to create the MEGATRON environment:
 
 ```bash
-sh setup_env.sh
+sh setup/setup_env.sh
 ```
 
 This will create a Conda environment named `meta310`. 
@@ -52,7 +52,7 @@ There are two environments available for :
 1. GPU-based processing (meta310) 
 2. CPU-based processing (myenv310).
 
-To create the CPU environment, simply replace `environment.yml` to `environmentNoCuda.yml` in the `setup_env.sh` script.
+To create the CPU environment, simply replace `environment.yml` to `environmentNoCuda.yml` in the `setup/setup_env.sh` script.
 
 ### 3. Activate the Environment
 
