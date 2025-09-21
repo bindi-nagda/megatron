@@ -78,7 +78,7 @@ python utils/extract_data.py
 python utils/prep_data.py
 ```
 
-The code has mechanisms to validate data and perform error-handling. All processes will be logged, and failed processed and can be safely re-initiated without affected already processed data. 
+The code has mechanisms to validate data and perform error-handling. All processes will be logged, and failed processed can be safely re-initiated without compromising already processed data. 
 
 To force reprocessing of any dataset(s), you can run
 
@@ -109,7 +109,11 @@ Start a training run by executing:
 sh batch_job.sh
 ```
 
-The script will submit jobs to SLURM and manage the training workflow.
+The script will submit jobs to SLURM and manage the training workflow. The `train.py` script already has mechanisms in place to periodically save model files and will continually save the best performing model as training progresses.
+
+### 3. View Results
+
+The training run logs, plots and model outputs can be viewed in the results directory specified in the `batch_job.sh` file.
 
 ---
 
