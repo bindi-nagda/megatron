@@ -2,6 +2,9 @@
 
 MEGATRON is a meta-learning framework for multimodal medical imaging data processing and model training. This repository provides tools to download and process data from open-source GREI repositories, and train meta-models on these datasets for few-shot object detection, with support for extensible custom datasets and SLURM-based job submission for GPU clusters.
 
+For additional information, please read the accompanying paper at 
+<a href="https://earlybyrdteam.github.io/megatron-site/" target="_blank" rel="noopener noreferrer">this link</a>.
+
 ---
 
 ## System Requirements
@@ -87,7 +90,7 @@ Running the above commands repeatedly will skip datasets that have already been 
 python data/prep_data.py --force
 ```
 
-For a final sanity check of the processed data, you can run following the utility file by passing in the dataset name. This will generate the processed images with bounding boxes overlays.
+For a final sanity check of the processed data, you can run the following utility file by passing in the dataset name. This will generate the processed images with bounding boxes overlays.
 
 ```bash
 python utils/sanity_check.py --dataset Breast-Ultrasound --num-samples 20
@@ -106,7 +109,7 @@ python utils/sanity_check.py --dataset Breast-Ultrasound --num-samples 20
 
 * Edit `batch_job.sh` to set the desired name for your results directory. This is where logs and model outputs will be saved.
 * Update paths in `run_job.std` to match your directory locations.
-* Specify which GPU nodes you want to use for training in `run_job.std`.
+* Specify which GPU nodes you want to use for training in `run_job.std` by modifying the #SBATCH --partition and #SBATCH --partition fields.
 
 ### 2. Run Training
 
@@ -116,7 +119,7 @@ Start a training run by executing:
 sh batch_job.sh
 ```
 
-The script will submit jobs to SLURM and manage the training workflow. The `train.py` script already has mechanisms in place to periodically save model files and will continually save the best performing model as training progresses.
+The script will submit jobs to SLURM and manage the training workflow. The `train.py` script already has mechanisms in place to periodically save model files and will continually save the best performing model as training progresses. All performance metrics will be logged at every epoch in `.json` and `.out` files inside the specified results directory.
 
 ### 3. View Results
 
