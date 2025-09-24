@@ -1,6 +1,7 @@
 import os
 import random
 import cv2
+import argparse
 from glob import glob
 
 def sanity_check(processed_dir, sanity_dir, dataset_name, num_samples=20):
@@ -8,7 +9,7 @@ def sanity_check(processed_dir, sanity_dir, dataset_name, num_samples=20):
        Perform a sanity check on the processed dataset by visualizing randomly 
        selected images and their bounding boxes.
     """
-    print(f"🚀 Starting sanity check for {dataset_name}")
+    print(f"Starting sanity check for {dataset_name}")
 
     images_dir = os.path.join(processed_dir, dataset_name, "images", "train")
     labels_dir = os.path.join(processed_dir, dataset_name, "labels", "train")
@@ -19,7 +20,7 @@ def sanity_check(processed_dir, sanity_dir, dataset_name, num_samples=20):
     image_files = [f for f in os.listdir(images_dir) if f.endswith((".jpg", ".png"))]
 
     if len(image_files) == 0:
-        print("⚠️ No images found!")
+        print("No images found!")
         return
 
     # Randomly select images
@@ -33,27 +34,27 @@ def sanity_check(processed_dir, sanity_dir, dataset_name, num_samples=20):
         # Read image
         img = cv2.imread(img_path)
         if img is None:
-            print(f"⚠️ Warning: Could not read {img_path}")
+            print(f"Warning: Could not read {img_path}")
             continue
         height, width = img.shape[:2]
 
         # Read labels
         if not os.path.exists(label_path):
-            print(f"⚠️ Warning: Label file {label_path} not found.")
+            print(f"Warning: Label file {label_path} not found.")
             continue
 
         with open(label_path, "r") as f:
             lines = f.readlines()
         
         if not lines:
-            print(f"⚠️ Warning: Label file {label_path} is empty. Skipping drawing.")
+            print(f"Warning: Label file {label_path} is empty. Skipping drawing.")
             continue
 
         # Draw bounding boxes
         for line in lines:
             parts = line.strip().split()
             if len(parts) != 5:
-                print(f"⚠️ Skipping invalid label line: {line}")
+                print(f"Skipping invalid label line: {line}")
                 continue  # skip invalid lines
 
             class_id, x_center, y_center, bbox_width, bbox_height = map(float, parts)
@@ -81,7 +82,7 @@ def sanity_check(processed_dir, sanity_dir, dataset_name, num_samples=20):
         # Save image
         save_path = os.path.join(output_dir, img_file)
         cv2.imwrite(save_path, img)
-        print(f"✅ Saved: {save_path}")
+        print(f"Saved: {save_path}")
 
     print(f"🎯 Sanity check complete! Check {output_dir}")
 
@@ -100,12 +101,25 @@ def count_files_with_class_0(labels_dir):
     print(f"Found {count} label files containing class ID 0 (unknown) in {labels_dir}")
 
 if __name__ == "__main__":
-    base_dir = os.path.expanduser("~/megatron")
+    parser = argparse.ArgumentParser(description="Run sanity check on a dataset")
+    parser.add_argument(
+        "--dataset",
+        type=str,
+        required=True,
+        help="Name of the dataset (e.g., DeepSight-2d-Mammogram)",
+    )
+    parser.add_argument(
+        "--num-samples",
+        type=int,
+        default=10,
+        help="Number of samples for sanity check",
+    )
+    args = parser.parse_args()
+    dataset_name = args.dataset
+
+    utils_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(utils_dir)
     processed_dir = os.path.join(base_dir, "ProcessedData")
     sanity_dir = os.path.join(base_dir, "SanityCheck")
 
-    dataset_name = "DeepSight-2d-Mammogram"  
-    labels_base_dir = os.path.join(processed_dir, dataset_name, 'labels/train')
-    #count_files_with_class_0(labels_base_dir)
-
-    sanity_check(processed_dir, sanity_dir, dataset_name, num_samples=10)
+    sanity_check(processed_dir, sanity_dir, dataset_name, num_samples=args.num_samples)

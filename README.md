@@ -73,17 +73,24 @@ conda activate myenv310
 After activating the environment, you can download and process datasets by running the following commands in sequence:
 
 ```bash
-python utils/download_data.py
-python utils/extract_data.py
-python utils/prep_data.py
+python data/download_data.py
+python data/extract_data.py
+python data/prep_data.py
 ```
+The downloaded, exctracted and processed data will be stored in automatically-created folders named `OriginalData`, `ExtractedData`, and `ProcessedData`. The `OriginalData` and `ExtractedData` can be safely discarded after all processed data has been generated.
 
-The code has mechanisms to validate data and perform error-handling. All processes will be logged, and failed processed can be safely re-initiated without compromising already processed data. 
+The code has mechanisms to validate data and perform error-handling. All processes will be logged to terminal, and failed processed can be safely re-initiated without compromising already processed data. 
 
-To force reprocessing of any dataset(s), you can run
+Running the above commands repeatedly will skip datasets that have already been processed. To force reprocessing of any dataset(s), you can run
 
 ```bash
-python utils/prep_data.py --force
+python data/prep_data.py --force
+```
+
+For a final sanity check of the processed data, you can run following the utility file by passing in the dataset name. This will generate the processed images with bounding boxes overlays.
+
+```bash
+python utils/sanity_check.py --dataset Breast-Ultrasound --num-samples 20
 ```
 
 **Customizing Datasets:**
