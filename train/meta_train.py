@@ -123,7 +123,7 @@ def main(num_epochs=10, meta_lr=0.05, user_store_dir='/tmp/'):
     # and read the tasks from the this file.
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    base_model = YOLO('yolov8n.pt'). 
+    base_model = YOLO('yolov8n.pt')
     base_model.to(device)
 
     best_avg_map50 = 0.0

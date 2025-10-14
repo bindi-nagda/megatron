@@ -99,7 +99,7 @@ python utils/sanity_check.py --dataset Breast-Ultrasound --num-samples 20
 **Customizing Datasets:**
 
 * Select which datasets to download, extract, and process by modifying the `config/datasets_config.yaml` file.
-* Add your own custom datasets and extend the processing pipeline using the function templates in the `*_data.py` files located in the `utils/` directory.
+* Add your own custom datasets and extend the processing pipeline using the function templates in the `*_data.py` files located in the `data/` directory.
 
 ---
 

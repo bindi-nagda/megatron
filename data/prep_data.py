@@ -578,7 +578,7 @@ def main(force=False):
     megatron_dir = os.path.dirname(utils_dir)
     extracted_base_dir = os.path.join(megatron_dir, "ExtractedData")
     processed_base_dir = os.path.join(megatron_dir, "ProcessedData")
-    config_path = os.path.join(utils_dir, 'config', 'datasets_config.yaml')
+    config_path = os.path.join('config', 'datasets_config.yaml')
 
     os.makedirs(processed_base_dir, exist_ok=True)
     datasets = load_datasets_config(config_path)

@@ -129,7 +129,7 @@ def main():
     megatron_dir = os.path.dirname(utils_dir)
     original_data_dir = os.path.join(megatron_dir, 'OriginalData')
     
-    config_path = os.path.join(utils_dir, 'config', 'datasets_config.yaml')
+    config_path = os.path.join('config', 'datasets_config.yaml')
     config = load_config(config_path)  # Load the YAML config file
     datasets = config.get('datasets', [])
 

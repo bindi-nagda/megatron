@@ -39,7 +39,7 @@ def main():
     os.makedirs(processed_data_dir, exist_ok=True)
     print(f"📂 Processed data directory is: {processed_data_dir}\n")
 
-    config_path = os.path.join(utils_dir, 'config', 'datasets_config.yaml')
+    config_path = os.path.join('config', 'datasets_config.yaml')
     config = load_config(config_path)
 
     for dataset in config['datasets']:
